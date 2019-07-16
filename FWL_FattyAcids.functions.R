@@ -1,5 +1,5 @@
 ####################################################################################
-# Script: Laura.fa.r
+# Script: FWL_FattyAcids.functions.R
 # Author: Wenting Lyu
 # Notes: This script helps calculate the 
 #        SFA, MUFA, PUFA and the aggregated main area for each sample.
