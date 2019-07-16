@@ -197,7 +197,7 @@ filtered_lipidomics <- anti_join(filtered_lipidomics, delete_empty, by = "LipidM
 write_csv(filtered_lipidomics, "data/post.filtered.lipidomics.csv")
 
 # calculate the saturation for different lipid class
-source("FattyAcids.R")
+source("FWL_FattyAcids.functions.R")
 message("The SFA, MUFA, PUFA information will be stored in the count_lipid.csv and aggregated.csv")
 
 #########################################################################
