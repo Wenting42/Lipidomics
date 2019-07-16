@@ -1,0 +1,16 @@
+LipidMolecule	Class	pmol
+LPA(17:1)	LPA	18.62
+PA(17:0/20:4)	PA	11.2
+LPS(17:1)	LPS	8.5
+PS(17:0/20:4)	PS	9
+LPE(17:1)	LPE	4.3
+LPC(17:1)	LPC	4.7
+PC(31:1)	PC	5.6
+PI(17:0/20:4)	PI	8.3
+LPI(17:1)	LPI	1.7
+PG(14:1/17:0)	PG	5.2
+Cer(d18:1/17:0)	Cer	9
+SM(d35:1)	SM	7
+CerG1(d30:1)	CerG1	7.8
+TG(17:1/17:1/17:1)	TG	3
+PE(17:0/14:1)	PE	5.6
