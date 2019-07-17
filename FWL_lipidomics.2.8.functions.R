@@ -1,7 +1,7 @@
 
 ####################################################################################
 # Script: FWL_lipidomics.2.8.functions.R
-# Author: Niklas, Kenny, Wenting
+# Author: Wenting
 # Notes:
 #         This script is based on Niklas and Kenny's previous massive work.
 #         It helps generating the graph and data for the flowork of lipid.
