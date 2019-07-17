@@ -54,4 +54,4 @@ The pipeline will implement quality control, statistics analysis and visualizati
 	</ul>
 </li>
 
-The main pipeline name starts with FWL and it will implement a consistent analysis for the search files, including fatty acids saturation analysis. And the saturation analysis could also be implemented independently via pipeline which has loose data filtering standard in fattyAcids_saturation_analysis folder. The main pipeline is built on the previous work of qualitiy_control and statistics_quantification files. 
+The main pipeline name starts with FWL and it will implement a consistent analysis for the search files, including fatty acids saturation analysis. And the saturation analysis could also be implemented independently via pipeline which has loose data filtering standard in fattyAcids_saturation_analysis folder. The main pipeline is built based on the previous work of qualitiy control, statistics quantification analysis and pathway visualizations and the original files can be found in corresponding folders. 
