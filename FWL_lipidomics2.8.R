@@ -1,12 +1,13 @@
 ####################################################################################
-# Script: FWL_lipidomics.2.8.R
+# Script: FWL_lipidomics2.8.R
 # Author: Wenting 
 # Notes:  To start, typing command in the console-----> source("FWL_lipidomics2.8.R") 
-#         or press the source butthon. Please open the cytoscape on your computer and 
-#         make sure Mac users installed XQuartz.
+#         or press the source butthon. 
+#         Please open the cytoscape on your computer and make sure Mac users installed XQuartz.
 #         This script is designed as a reference for lipidomics experiment. It is based
 #         on Niklas and Kenny's previous work. Acknowledge to Weng's technical advice
 #         and Sebstian's shadow experiment.
+#
 # Usage:  1) Type the name of transformed data file you want for analysis and choose it.
 #         2) Input the sample name of internal standandards seperated by space, 
 #            e.g. S18 S19 S20.
