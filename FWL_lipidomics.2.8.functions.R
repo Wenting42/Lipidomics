@@ -2,22 +2,14 @@
 ####################################################################################
 # Script: FWL_lipidomics.2.8.functions.R
 # Author: Wenting
-# Notes:
-#         This script is based on Niklas and Kenny's previous massive work.
-#         It helps generating the graph and data for the flowork of lipid.
-#
+# Notes:  This helps generating the graph and data for the workflow of lipid.
 #         To start, typing command in the console-----> source("FWL_lipidomics2.0.R")
+#         or press the source button.
+#         This pipeline is based on Niklas's and Kenny's previous work. Their original 
+#         source scripts are in the quality_control and statistics_quantification directories
 #
-#         1) interactive way.
-#         First please store the file name in the variable file.name for check
-#         Run the script by command "source("FWL_lipidomics2.0.R") in console.
-#         All the data are stored in the directory called "data", and plots in "plot"
-#         2) You can change the parameters in the script and run it lines by lines.
-#           Before you change any parameters, please copy the original script first.
-#
-# Warning: Please DO NOT change png format to pdf which
-#           might induce troubles for displaying plots!
-#         ctrol+c is the function to quit the script
+# Warning: For mac users, please make sure XQuartz is installed. Otherwise the pipeline 
+#           might crash when generating summary plots for each class
 #####################################################################################
 
 ##### Please install the lacking packages ------> install.packages("package")
@@ -25,7 +17,6 @@
 initial.package <- "BiocManager"
 need.package <- initial.package[!(initial.package %in% installed.packages()[, "Package"])]
 if(length(need.package) > 0) install.packages(need.package)
-
 
 list.of.packages <- c( "FactoMineR", "factoextra", "scales", "magrittr", "ggrepel", "reshape2",
                        "stargazer", "Hmisc", "limma", "factoextra", "scales", "RColorBrewer",
@@ -39,11 +30,7 @@ lapply(list.of.packages, function(x)
   suppressMessages(require(x, character.only = TRUE, quietly = TRUE)))
 
 
-# git.package <- "rlang"
-# need.git <- git.package[!(git.package  %in% installed.packages()[, "Package"])]
-# if(length(need.git)) 
-
-# color which are kind for color blinded people
+# color which are friendly for color blinded people
 clPalette1 <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 clPalette2 <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -64,6 +51,17 @@ mkdirs <- function(x){
 
 
 ########################################################################
+# function name: addquotes
+# utility: add quotes for strings. 
+# source: Advanced R
+########################################################################
+addquotes <- function(...){
+  args <- ensyms(...)
+  paste(purrr::map(args, rlang::as_string), collapse = "")
+}
+       
+       
+########################################################################
 # function name: InternalCheck
 # parameter: internals (y/n)
 # utility: This function will check if there are internal control samples exist. 
@@ -72,18 +70,15 @@ mkdirs <- function(x){
 #         C and D, plus the p values which are less or equal than 0.001 for each row. It will return the 
 #         the extra information
 ########################################################################
-addquotes <- function(...){
-  args <- ensyms(...)
-  paste(purrr::map(args, rlang::as_string), collapse = "")
-}
-
-
 InternalCheck <- function(internals, lipid){
   if(internals=="y"){
     message("If your experiment includes standard control and solvent control, please input the number of the sample. And if only one control sample need to delete, just type the same sample two times or some unexist sample for the other option.
         e.g. sxx")
     message("Sample ID for extracted and unextracted internal control, eg. s22, s23")
-    internal_standards <- as.character(readline("internal standards -----> ")) %>% str_to_lower(.) %>% str_split(., "\\s") %>% unlist(.)
+    internal_standards <- as.character(readline("internal standards -----> ")) %>% 
+                          str_to_lower(.) %>% 
+                          str_split(., "\\s") %>% 
+                          unlist(.)
     name1 <- "MainGrade["
     name2 <- "APValue["
     internal_Grades <- sapply(internal_standards, function(x)addquotes(!!name1, !!x, "]"))
@@ -132,26 +127,21 @@ fix_duplicate <- function(filtered.lipids, duplicates, fixmethod){
   # get all names of sample
   all_names <- colnames(duplicates)[-c(1:3)]
   if(str_to_upper(fixmethod) == "A"){
-    sum_dt <- duplicates %>%  select(Class, LipidMolec, BaseRt, all_names)  %>% mutate(sumROC=rowSums(.[4:ncol(.)]))
-    sum_dt <- sum_dt %>% group_by(LipidMolec) %>% arrange(LipidMolec, sumROC) %>% top_n(1, sumROC)
-    duplicate_dt <- semi_join(filtered.lipids, sum_dt, by = c("BaseRt", "LipidMolec")) 
-    unique_dt <- anti_join(filtered.lipids, duplicates, by = c("BaseRt", "LipidMolec"))
-    dt <- bind_rows(duplicate_dt, unique_dt) %>% arrange(LipidMolec)
+      sum_dt <- duplicates %>%  select(Class, LipidMolec, BaseRt, all_names)  %>% mutate(sumROC=rowSums(.[4:ncol(.)]))
+      sum_dt <- sum_dt %>% group_by(LipidMolec) %>% arrange(LipidMolec, sumROC) %>% top_n(1, sumROC)
+      duplicate_dt <- semi_join(filtered.lipids, sum_dt, by = c("BaseRt", "LipidMolec")) 
+      unique_dt <- anti_join(filtered.lipids, duplicates, by = c("BaseRt", "LipidMolec"))
+      dt <- bind_rows(duplicate_dt, unique_dt) %>% arrange(LipidMolec)
   }else if(str_to_upper(fixmethod) == "B"){
-    sum_dt <- duplicates %>%  select(Class, LipidMolec, all_names) %>% group_by(Class, LipidMolec) %>% summarise_at(all_names, funs(sum))
-    dt<- filtered_lipids %>% select(Class, LipidMolec, all_names) %>% group_by(LipidMolec) %>% summarise_at(all_names, funs(sum))
+      sum_dt <- duplicates %>%  select(Class, LipidMolec, all_names) %>% group_by(Class, LipidMolec) %>% summarise_at(all_names, funs(sum))
+      dt<- filtered_lipids %>% select(Class, LipidMolec, all_names) %>% group_by(LipidMolec) %>% summarise_at(all_names, funs(sum))
   } else{
-    fixmethod <- readline("You type wrong, please type again, A/B: ")
-    return(fix_duplicate(filtered.lipids, duplicates, fixmethod))
+      fixmethod <- readline("You type wrong, please type again, A/B: ")
+      return(fix_duplicate(filtered.lipids, duplicates, fixmethod))
   }
   
   return(list(sum_dt, dt))
 }
-
-
-
-
-
 
 
 ########################################################################
@@ -175,18 +165,18 @@ PropPlot <- function(data){
 ########################################################################
 # function name: IndividuleRetentionPlot
 # parameter: lipid.data, sample 
-# utility: This function is unused. If you want to use it, please uncomment the 
-#          correponding part in the main script. it will 
-#           plot retention time for individule sample and save the plot 
+# utility: This function is unused. 
+#          If you want to use it, please uncomment the correponding part in the 
+#          main script. it will plot retention time for individule sample and save the plot 
 ########################################################################
 IndividuleRetentionPlot <- function(lipid.data, sample){
   retention.plot <-   ggplot(data=lipid.data,
                              aes_string(x = sprintf("log10(%s)", sample), y = "BaseRt")) +
-    geom_point() +
-    theme_bw() +
-    facet_grid(.~Class) +
-    labs("Abundance VS. Retention time",
-         x="lipid class (log10(MainArea))", y="Retention time")
+                      geom_point() +
+                      theme_bw() +
+                      facet_grid(.~Class) +
+                      labs("Abundance VS. Retention time",
+                           x="lipid class (log10(MainArea))", y="Retention time")
   print(retention.plot)
   message("Please input the name you want to store for the graph. e.g. retention.pdf")
   plot_name <- readline("QC plot name: ")
@@ -216,7 +206,8 @@ Detect_duplicates <- function(lipid.data){
   # retrieve duplicated molecule names
   unique_molec_names <- molec_names[which(class_size>1)]
   # get duplicated lipid molecules
-  duplicates <- class_lipids[which(class_lipids$LipidMolec %in% unique_molec_names), ] %>% arrange(Class, LipidMolec, BaseRt)
+  duplicates <- class_lipids[which(class_lipids$LipidMolec %in% unique_molec_names), ] %>% 
+                arrange(Class, LipidMolec, BaseRt)
   return(duplicates)
 }
 
@@ -237,7 +228,6 @@ AllRetentionPlot <- function(new.data){
     labs("Abundance VS. Retention time",
          x="All samples (log10(MainArea))", y="Retention time (mins)")
   print(retention.all.plot)
-  #ggsave(filename = "all.retention.pdf", path = 'plot/', units = "in", height=4, width=5, dpi=300, dev="pdf")
   ggsave(filename = "all.retention.png", path = 'plot/', device = "png", width = 10, height = 8, dpi = 150, units = "in")
 }
 
@@ -264,9 +254,7 @@ GrepIndex <- function(sample, data){
   return(info)
 }
 
-# var <- readline()
-# name <- paste("[s", var, "]", sep="")
-# sample_list <- sapply(name, function(x)addquotes(MainArea, !!x))
+
 ########################################################################
 # function name: Input
 # parameter: data (filtered_lipids)
@@ -323,8 +311,6 @@ CheckType <- function(x){
     }
   }
 }
-
-
 
 
 ########################################################################
@@ -559,23 +545,7 @@ PCA_pairs_Plot <- function(info, group_names, filtered_lipids, mark){
   }
   
   #################################################################
-  ### old axis for PCA
-  # 
-  # # Storing pairwise plot in the plot directory
-  # for(i in 1:length(sample_index)){
-  #   range     <- sample_index[i]
-  #   plot_name <- paste("pairs.plot.", i, ".", mark, ".oldversion.pdf",sep="")
-  #   path      <- file.path("plot/", plot_name)
-  #   pairs(log10(filtered_lipids[, info[[range]]]), 
-  #         lower.panel = panel.smooth, diag.panel=panel.hist, 
-  #         upper.panel = panel.cor, xlim=c(4,12), ylim=c(4,12))
-  #   dev.copy(pdf, path)
-  #   dev.off()
-  # }
-  # 
-  
-  #################################################################
-  
+  # old version axis display
   # Storing pairwise plot in the plot directory
   for(i in 1:length(sample_index)){
     range     <- sample_index[i]
@@ -587,6 +557,7 @@ PCA_pairs_Plot <- function(info, group_names, filtered_lipids, mark){
     dev.copy(pdf, path)
     dev.off()
   }
+  #################################################################
   
   # making group repeats according to its position for making groups of later PCA
   information <- RetrieveInfo(info)
@@ -632,24 +603,15 @@ PCA_pairs_Plot <- function(info, group_names, filtered_lipids, mark){
   concat          <-  cbind.data.frame(filtered_lipids_PCA[, ncol(filtered_lipids_PCA)], 
                                        res.pca$ind$coord)
   ellipse.coord   <-  coord.ellipse(concat, bary=TRUE)
-  
-  
-  
   #pdf(file="plot/sample.pca.pdf")
+         
   plot.PCA(res.pca, habillage=ncol(filtered_lipids_PCA), 
            ellipse=ellipse.coord, cex=0.8, label="all")
   dev.copy(pdf, "plot/sample.pca.pdf")
   dev.off()
-  
-  
-  # plot.PCA(res.pca, habillage=ncol(filtered_lipids_PCA), 
-  #          ellipse=ellipse.coord, cex=0.8, label="quali")
-  # dev.copy(pdf, "plot/group.pca.pdf")
-  # dev.off()
-  
+    
   # # Output the filtered lipidome
   # write.csv(filtered_lipids, "data/filtered_lipids.csv")
-  ###################################################################################### 
   return(list(sample_list, group_repeats))
 }
 
@@ -678,8 +640,6 @@ PCAcheck <- function(pca_check, data){
 }  
 
 
-
-
 ########################################################################
 # function name: RetrieveInfo
 # parameter: info
@@ -706,11 +666,6 @@ RetrieveInfo <- function(info){
   }
   return(list(group_repeats, sample_list, sample_index))
 }
-
-
-
-
-
 
 
 #########################################################################
@@ -761,9 +716,6 @@ CalculateMainArea <- function(...){
 }
 
 
-
-
-
 #########################################################################
 # function name: DetectEmpty
 # parameter: ngroups, samples, empty_lipid
@@ -803,15 +755,6 @@ SumByGroup <- function(n, samples, lipid){
   
   return(dt2)
 }
-
-
-
-
-
-
-
-
-
 
 
 #########################################################################
