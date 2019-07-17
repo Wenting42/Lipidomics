@@ -1,4 +1,4 @@
-**## Lipidomics Project**
+##**Lipidomics Project**
 
 ### Getting Started
 R 3.6.0 or higher version and RStudio needed.
@@ -11,7 +11,9 @@ The pipeline will implement quality control, statistics analysis and visualizati
 <li>FWL_lipidomics2.8.R</li>
 <li>FWL_lipidomics.functions2.8.R</li>
 <li>FWL_FattyAcids.functions.R</li>
-<li>Archive</li>
+<li>Archive (old versions of pipeline)
+	<ul>...</ul>
+</li>
 <li>convert_data</li>
 <li>fattyAcids_saturation_analysis
 	<ul>
