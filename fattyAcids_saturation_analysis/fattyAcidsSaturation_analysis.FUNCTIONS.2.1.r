@@ -1,19 +1,16 @@
 ####################################################################################
 # Script: fattyAcidsSaturation_analysis.FUNCTIONS.2.1.r
 # Author: Wenting
-# Notes:
-#         This script is based on Niklas and Kenny's previous massive work.
-#         It helps generating the graph and data for the flowork of lipid.
-#
-#         To start, typing command in the console-----> source("FWL_lipidomics2.0.R")
-#
-#         1) interactive way.
-#         First please store the file name in the variable file.name for check
-#         Run the script by command "source("FWL_lipidomics2.0.R") in console.
-#         All the data are stored in the directory called "data", and plots in "plot"
-#         2) You can change the parameters in the script and run it lines by lines.
-#           Before you change any parameters, please copy the original script first.
-#
+# Notes: This script is the assistant script of fattyAcidsSaturation_analysis2.1.r
+#         which helps calculate the SFA, MUFA, PUFA and the aggregated main area for each sample.
+#       First, Make sure that your R and Rstudio are newly enough for installing the 
+#             packages needed in the script. Otherwise the script will pop out warnings 
+#             for packages and won't run.
+#       Second, please set the working environment first. Users can copy the project and
+#               put it in the directory with the scripts. After that please click the
+#               project first and then run the script.
+#       Third, to run the script, please type the command below in the console:
+#                 source("fattyAcidsSaturation_analysis2.1.r")   
 #####################################################################################
 
 # load packages needed
