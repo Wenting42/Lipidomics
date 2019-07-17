@@ -1,7 +1,7 @@
 
 ####################################################################################
 # Script: FWL_lipidomics.2.8.functions.R
-# Author: Wenting
+# Author: Wenting, Niklas, Kenny
 # Notes:  This helps generating the graph and data for the workflow of lipidomics.
 #         To start, typing command in the console-----> source("FWL_lipidomics2.0.R")
 #         or press the source button.
