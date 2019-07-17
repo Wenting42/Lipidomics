@@ -6,10 +6,12 @@
 #       First, Make sure that your R and Rstudio are newly enough for installing the 
 #             packages needed in the script. Otherwise the script will pop out warnings 
 #             for packages and won't run.
-#       Second, click the "Laura.project.Rproj" 
+#       Second, please set the working environment first. Users can copy the project and
+#               put it in the directory with the scripts. After that please click the
+#               project first and then run the script.
 #       Third, to run the script, please type the command below in the console:
-#                 source("Laura.fa.2.1.r")   
-#              or, click the button "source"
+#                 source("fattyAcidsSaturation_analysis2.1.r")   
+#              or click the button "source"
 #         
 #####################################################################################
 rm(list=ls())
