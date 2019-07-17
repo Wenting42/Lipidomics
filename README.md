@@ -1,4 +1,4 @@
-##Lipidomics Project
+## **Lipidomics Project**
 
 ### Getting Started
 R 3.6.0 or higher version and RStudio needed.
