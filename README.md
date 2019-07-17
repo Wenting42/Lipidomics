@@ -1,16 +1,16 @@
 ## **Lipidomics Project**
 
-#### Getting Started
+### Getting Started
 R 3.6.0 or higher version and RStudio needed.
 
-#### Goal
+### Goal
 The project is designed as a referece for lipidomics experiments. All the data are collected via Lipid Search software. 
 The pipeline will implement quality control, statistics analysis and visualization for the mass spectrometry based data.
 
-#### Introduction 
+### Introduction 
 
 <ul>
-<li>FWL_lipidomics2.8.R</li>
+<li>FWL_lipidomics2.8.R{.smaller}</li>
 <li>FWL_lipidomics.functions2.8.R</li>
 <li>FWL_FattyAcids.functions.R</li>
 <li>Archive (old versions of pipeline)
