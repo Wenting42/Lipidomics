@@ -1,16 +1,17 @@
 ####################################################################################
 # Script: FWL_FattyAcids.functions.R
 # Author: Wenting Lyu
-# Notes: This script helps calculate the 
-#        SFA, MUFA, PUFA and the aggregated main area for each sample.
-#       First, Make sure that your R and Rstudio are newly enough for installing the 
-#             packages needed in the script. Otherwise the script will pop out warnings 
-#             for packages and won't run.
-#       Second, click the "Laura.project.Rproj" 
-#       Third, to run the script, please type the command below in the console:
-#                 source("Laura.fa.r")   
-#              or, click the button "source"
-#         
+# Notes: This script assist executing for main script FWL_lipidomics2.8.R which
+#         helps generating the graph and data for the workflow of lipidomics.
+#         This script helps calculate the SFA, MUFA, PUFA and the aggregated main area 
+#         for each sample.
+#         First, Make sure that your R and Rstudio are newly enough for installing the 
+#         packages needed in the script. Otherwise the script will pop out warnings 
+#         for packages and won't run.
+#         Second, typing command in the console-----> source("FWL_lipidomics2.8.R")
+#         or press the source button.
+#         Third, users can independently implement this analysis by running 
+#         "fattyAcidsaturation_analysis2.1.r" in directory fattyAcids_saturation_analysis.
 #####################################################################################
 
 
