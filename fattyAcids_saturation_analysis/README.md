@@ -1,5 +1,5 @@
 ### Summary
-This project is derived from Laura's idea.It will do fatty acids satuaration analysis by generating the SF, MUFA and PUFA 
+This project is derived from Laura's idea. It will do fatty acids satuaration analysis by generating the SF, MUFA and PUFA 
 for different lipid classes in different groups. This project is still in progress for exploring more possibilities to do visualization. 
 All the needed data will be stored in the data directory. And they will be marked by their group name automatically in the final file.
 The data and plots will be stored in directory data and plot by pipeline.
