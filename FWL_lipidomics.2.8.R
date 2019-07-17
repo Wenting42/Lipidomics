@@ -1,25 +1,47 @@
 ####################################################################################
-# Script: FWL_lipidomics.2.7.R
+# Script: FWL_lipidomics.2.8.R
 # Author: Wenting 
-# Notes: 
-#         This script is based on Niklas and Kenny's previous massive work. 
-#         It helps generating the graph and data for the flowork of Lipidomics. 
-#
-#         To start, typing command in the console-----> source("FWL_lipidomics2.0.R") 
-#
-#         1) interactive way.  
-#         First please store the file name in the variable file.name for check 
-#         Run the script by command "source("FWL_lipidomics2.7.R") in console.
-#         All the data are stored in the directory called "data", and plots in "plot"
-#         2) You can change the parameters in the script and run it lines by lines.
-#           Before you change any parameters, please copy the original script first.
+# Notes:  To start, typing command in the console-----> source("FWL_lipidomics2.8.R") 
+#         or press the source butthon. Please open the cytoscape on your computer and 
+#         make sure Mac users installed XQuartz.
+#         This script is designed as a reference for lipidomics experiment. It is based
+#         on Niklas and Kenny's previous work. Acknowledge to Weng's technical advice
+#         and Sebstian's shadow experiment.
+# Usage:  1) Type the name of transformed data file you want for analysis and choose it.
+#         2) Input the sample name of internal standandards seperated by space, 
+#            e.g. S18 S19 S20.
+#         3) Input the quality control standandards for Lipid Search software, the usual 
+#            standards are 4 for numbers of grades and numbers of APValue less than 0.001.
+#         4) Please check the proportion difference of retention time plots for quality control.
+#            And check the retention time difference for same lipid molecule in data/diff_RT.csv
+#            If the time gaps are too large. Users will need consider redo the experiment. 
+#            If continue, users will need choose from 2 methods for dealing with duplicated lipid 
+#             molecules by typing A or B. 
+#            # Method A will pick the main lipid molecule which area under curve is largest.
+#            # Method B will aggregate the duplicated molecules.
+#         5) Please read background.png for estimating background signal. The background will
+#             be removed from the main area under curve for later analysis.
+#         6) After User input the group information, please check the file data/checkInvalid.csv 
+#             which store the lipid molecule information after removing background. 
+#             Users need delete lipid molecule based on the experiment design in this file or not,
+#             then choose this file for open. 
+#            # Please note that the rest invalid lipid molecules will be imputated later.
+#         7) saturation analysis will combined into this step for the filtered data.
+#         8) The data will be log transformed (data/log2.data.csv) and imputated (data/imputClass.csv)
+#            for class summary plots.
+#         9) For vocano plots, the lipid molecules data will also take log transformed (data/log.molec.csv) 
+#            and imputated (data/imputeMolec.csv). Users need input contrast groups, e.g, FLOX - LKO.
+#            The other outputs will be stored in files named by users.
+#         10) The pathway visualization part is connected to cytoscape. Please be sure that the cytoscape is
+#              open when running the pipeline.
+#      
+# Status:  In progress        
 #           
-
 #####################################################################################
 
 
 rm(list=ls())  ##### empty the environment first. If you need to keep former variables in workspace, just comment this part
-setSessionTimeLimit(cpu = Inf, elapsed = Inf)
+# setSessionTimeLimit(cpu = Inf, elapsed = Inf)
 # source function from FWL_lipidomics.**.functions.R script
 source("FWL_lipidomics.2.8.functions.R")
 # Check directory existence, if not then make one
@@ -363,7 +385,7 @@ fc_class <- fc_data_long %>% spread(., key = experiment.group, value = value)
 
 control.group <- fc_data_long$experiment.group[1]
 
-
+# generate fold change data for different groups
 exist.class <- intersect(fc_class$class, path.class)
 detect.lipid <- fc_class %>% filter(class %in% exist.class)
 empty.lipid <- path.class[!path.class %in% exist.class]
