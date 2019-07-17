@@ -14,7 +14,7 @@ Users will also be asked to type the group information in the RStudio console.
 ### Author
 Wenting
 
-### Contributor
+### Acknowledgements
 Laura
 
 
