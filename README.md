@@ -9,8 +9,8 @@ The pipeline will implement quality control, statistics analysis and visualizati
 
 ### Introduction 
 
-<ul>
-<li>FWL_lipidomics2.8.R{.smaller}</li>
+<ul>{font-size:6pt;}
+<li>FWL_lipidomics2.8.R</li>
 <li>FWL_lipidomics.functions2.8.R</li>
 <li>FWL_FattyAcids.functions.R</li>
 <li>Archive (old versions of pipeline)
