@@ -7,6 +7,7 @@ R 3.6.0 or higher version and RStudio needed.
 The project is designed as a referece for lipidomics experiments. All the data are collected via Lipid Search software. 
 The pipeline will implement quality control, statistics analysis and visualization for the mass spectrometry based data.
 
+### Introduction
 <ul>
 <li>FWL_lipidomics2.8.R</li>
 <li>FWL_lipidomics.functions2.8.R</li>
@@ -52,3 +53,5 @@ The pipeline will implement quality control, statistics analysis and visualizati
 		<li>Volcano.R</li>
 	</ul>
 </li>
+
+The main pipeline name starts with FWL and it will implement a consistent analysis for the search files, including fatty acids saturation analysis. And the saturation analysis could also be implemented independently via pipeline which has loose data filtering standard in fattyAcids_saturation_analysis folder. The main pipeline is built on the previous work of qualitiy_control and statistics_quantification files. 
