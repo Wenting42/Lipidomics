@@ -10,7 +10,7 @@ R 3.6.0 or higher version and RStudio needed. All the packages needed for pipeli
 For Mac users, please make sure XQaurtz is installed for preventing the crash of the pipeline.
 
 ### Feedback
-[wlyu@hsph.harvard.edu]
+wlyu@hsph.harvard.edu
 
 ### Contributors
 Wenting Lyu, Manuel Piccolo, Mejhert Niklas, Kun Wang, Lai ZongWeng, Laura Bond
