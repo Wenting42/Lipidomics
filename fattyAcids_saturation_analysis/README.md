@@ -9,7 +9,7 @@ When running main scripts, all the needed packages will be installed and loaded 
 
 ### Usage
 Users will be asked to set quality control standards of Lipid Search software for grades and APValue, the most common choices are both 4.
-Users will also be asked to type the group information in the RStudio console. 
+Users will also be asked to type the group information in the RStudio console, and the samples are reformated and case insensitive, e.g. S18 S19 S20. 
 
 ### Author
 Wenting
