@@ -5,8 +5,9 @@
 #         or press the source butthon. 
 #         Please open the cytoscape on your computer and make sure Mac users installed XQuartz.
 #         This script is designed as a reference for lipidomics experiment. It is based
-#         on Niklas and Kenny's previous work. Acknowledge to Weng's technical advice
-#         and Sebstian's shadow experiment.
+#         on Niklas and Kenny's previous work (Their work files can be found in folders 
+#         quality_control and statistics_quantification). Acknowledge to Weng's technical 
+#         guidance and Sebstian's shadow experiment.
 #
 # Usage:  1) Type the name of transformed data file you want for analysis and choose it.
 #         2) Input the sample name of internal standandards seperated by space, 
