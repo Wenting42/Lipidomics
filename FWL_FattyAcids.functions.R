@@ -12,6 +12,7 @@
 #         or press the source button.
 #         Third, users can independently implement this analysis by running 
 #         "fattyAcidsaturation_analysis2.1.r" in directory fattyAcids_saturation_analysis.
+#         This project is derived from Laura's idea
 #####################################################################################
 
 
