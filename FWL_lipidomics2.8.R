@@ -10,8 +10,8 @@
 #         guidance, Laura's fatty acid saturation analysis project and Sebstian's shadow experiment
 #
 # Usage:  1) Type the name of transformed data file you want for analysis and choose it.
-#         2) Input the sample name of internal standandards seperated by space, 
-#            e.g. S18 S19 S20.
+#         2) Input the sample name of internal standandards seperated by space, the samples are
+#             reformated and case insensitive, e.g. S18 S19 S20. 
 #         3) Input the quality control standandards for Lipid Search software, the usual 
 #            standards are 4 for numbers of grades and numbers of APValue less than 0.001.
 #         4) Please check the proportion difference of retention time plots for quality control.
