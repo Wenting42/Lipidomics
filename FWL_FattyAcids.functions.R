@@ -3,7 +3,7 @@
 # Author: Wenting Lyu
 # Notes: This script assist executing for main script FWL_lipidomics2.8.R which
 #         helps generating the graph and data for the workflow of lipidomics.
-#         This script helps calculate the SFA, MUFA, PUFA and the aggregated main area 
+#         it also calculate the SFA, MUFA, PUFA and the aggregated main area 
 #         for each sample.
 #         First, Make sure that your R and Rstudio are newly enough for installing the 
 #         packages needed in the script. Otherwise the script will pop out warnings 
