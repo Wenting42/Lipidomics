@@ -13,4 +13,4 @@ For Mac users, please make sure XQaurtz is installed for preventing the crash of
 wlyu@hsph.harvard.edu
 
 ### Contributors
-Wenting Lyu, Manuel Piccolo, Mejhert Niklas, Kun Wang, Lai ZongWeng, Laura Bond
+Wenting Lyu, Manuel Piccolo, Niklas Mejhert, Kun Wang, Lai ZongWeng, Laura Bond
