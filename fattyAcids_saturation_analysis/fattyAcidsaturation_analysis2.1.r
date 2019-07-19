@@ -166,7 +166,15 @@ rdata <- area_groups %>%
 stackplots <- ggplot(data = rdata, aes(x=experiment_group, y=value, fill = saturation_of_group)) +
   geom_bar(stat = "identity") +
   facet_wrap(~Class, scales = "free") +
-  scale_fill_brewer(palette = "Set2")
+  scale_fill_brewer(palette = "Set2") +
+  theme_bw() +
+  theme(text = element_text(size = 8),
+        axis.text = element_text(size = 6), 
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6),
+        axis.title = element_text(size = 10),
+        panel.background = element_rect(fill = "white")) + 
+  labs(x = "Experiment groups", y = "Area under curve", fill = NULL) 
 print(stackplots)
 ggsave(filename = "stackplots.pdf", path="plot/", device="pdf")
 
