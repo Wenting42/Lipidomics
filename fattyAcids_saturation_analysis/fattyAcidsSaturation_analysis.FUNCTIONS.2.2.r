@@ -11,6 +11,7 @@
 #               project first and then run the script.
 #       Third, to run the script, please type the command below in the console:
 #                 source("fattyAcidsSaturation_analysis2.2.r") #
+#  fixed some calculation bugs
 #####################################################################################
 
 # load packages needed
@@ -246,18 +247,6 @@ RetrieveInfo <- function(info){
 
 
 
-
-
-
-
-# getMedian <- function(data, range){
-#   apply(data[range], 1, median)
-# }
-# 
-# getMean <- function(data, range){
-#   apply(data[,range], 1, mean)
-# }
-
 ########################################################################
 # function name: getSameple
 # parameter: fa_percent, group_info
@@ -269,59 +258,37 @@ CalcGroup <- function(percent_info, groups){
     samples<- filter(groups, groups == i) %>% ungroup() %>% select(samples)
     sample_list <- samples$samples
     nameMedian <- addquotes(!!i, "_median")
-    #nameMedian_sfa <- addquotes(!!i, "_median_SFA")
-    # nameMedian_mufa <- addquotes(!!i, "_median_MUFA")
-    # nameMedian_pufa <- addquotes(!!i, "_mean_PUFA")
     nameMean <- addquotes(!!i, "_mean")
-    # nameMean_sfa <- addquotes(!!i, "_mean_SFA")
-    # nameMean_mufa <- addquotes(!!i, "_mean_MUFA")
-    # nameMean_pufa <- addquotes(!!i, "_mean_PUFA")
-   
+  
     # get median and mean for samples in each group 
-   dt1 <-  percent_info %>% rowwise() %>% transmute(!!nameMedian := median(c(!!!syms(sample_list))), 
-                                                  !!nameMean := mean(c(!!!syms(sample_list))))
+   dt1 <-  percent_info %>% 
+           rowwise() %>% 
+           transmute(!!nameMedian := median(c(!!!syms(sample_list))), 
+                     !!nameMean := mean(c(!!!syms(sample_list))))
    percent_info <- cbind(percent_info, dt1)
-   
-   # Median_sfa <- addquotes("%SFA * ", !!nameMedian)
-   # Median_mufa <- addquotes("%MUFA * ", !!nameMedian)
-   # Median_pufa <- addquotes("%PUFA * ", !!nameMedian)
-   # 
-   # Mean_sfa <- addquotes("%SFA * ", !!nameMean)
-   # Mean_sfa <- addquotes("%MUFA * ", !!nameMean)
-   # Mean_sfa <- addquotes("%PUFA * ", !!nameMean)
-   
-   
+    
    k1 <- c("%SFA", "%MUFA", "%PUFA")
-   
    exprMedian <- sapply(k1, function(x)expr(!!sym(x) * !!sym(nameMedian)))
    exprMean <- sapply(k1, function(x)expr(!!sym(x) * !!sym(nameMean)))
    
-   k2 <- c("_SFA", "_MUFA", "_PUFA")
-   
+   k2 <- c("_SFA", "_MUFA", "_PUFA")  
    medians <- sapply(k2, function(x)addquotes(!!nameMedian, !!x))
    means <- sapply(k2, function(x)addquotes(!!nameMean, !!x))
-   
- 
-   # n1 <- expr(!!sym("%SFA") * !!sym(nameMedian))
-   
-   # print(n1)
-   #dt2 <- percent_info %>% rowwise() %>% transmute(!!nameMedian_sfa := eval(n1))
-   # dt2 <- percent_info %>% rowwise() %>% transmute(nameMedian_sfa = eval(exprMedian[[1]]))
+
    
    # do saturation analysis for each group 
-   dt2 <- percent_info %>% rowwise() %>% transmute(!!(medians[1]) := eval(exprMedian[[1]]),
-                                                   !!(medians[2]) := eval(exprMedian[[2]]), 
-                                                   !!(medians[3]) := eval(exprMedian[[3]]),
-                                                   !!(means[1]) := eval(exprMean[[1]]),
-                                                   !!(means[2]) := eval(exprMean[[2]]),
-                                                   !!(means[3]) := eval(exprMean[[3]]))
+   dt2 <- percent_info %>% 
+          rowwise() %>% 
+          transmute(!!(medians[1]) := eval(exprMedian[[1]]),
+                    !!(medians[2]) := eval(exprMedian[[2]]), 
+                    !!(medians[3]) := eval(exprMedian[[3]]),
+                    !!(means[1]) := eval(exprMean[[1]]),
+                    !!(means[2]) := eval(exprMean[[2]]),
+                    !!(means[3]) := eval(exprMean[[3]]))
    percent_info <- cbind(percent_info, dt2)
   }
-  view(percent_info)
   return(percent_info)
 }
-
-
 
 
 
@@ -344,11 +311,6 @@ ReformatData <- function(data, pick){
     mutate_at(vars(Pattern), list(~str_remove(Pattern, pattern)))
   return(list(info, dt))
 }
-
-
-
-
-
 
 
 
