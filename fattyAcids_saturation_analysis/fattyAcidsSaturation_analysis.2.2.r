@@ -154,32 +154,3 @@ ggsave(filename = "meanBased.fattyAcids.pdf", path="plot/", device="pdf")
 dt <- PassToNormal(mean2)
 p3 <- PlotGroups(dt)
 print(p3)
-# # calculate the MainArea for SFA, MUFA, PUFA by Class in each group
-# area_groups <- data %>% ungroup() %>% group_by(Class) %>% summarise_at(.vars = colnames(.)[1:(4*ngroups)], sum)
-# message("Please note that MainArea for SFA, MUFA, PUFA by class in each group information is stored in classFA.csv")
-# write_csv(area_groups, "data/classFA.csv")
-# 
-# 
-# # reformat data structure for visualization
-# rdata <- area_groups %>% 
-#   select(-group_names) %>% 
-#   gather(., key="saturation_of_group", value="value", -Class) %>% 
-#   mutate(experiment_group = str_remove(saturation_of_group, "_.*")) %>% 
-#   mutate_at(vars(saturation_of_group),  list(~str_remove(saturation_of_group, ".*_")))
-
-
-# # plot saturantion status in different groups of different class
-# stackplots <- ggplot(data = rdata, aes(x=experiment_group, y=value, fill = saturation_of_group)) +
-#   geom_bar(stat = "identity") +
-#   facet_wrap(~Class, scales = "free") +
-#   scale_fill_brewer(palette = "Set2") +
-#   theme_bw()+
-#   theme(axis.text.x = element_text(angle=65))
-# print(stackplots)
-# ggsave(filename = "stackplots.pdf", path="plot/", device="pdf")
-# 
-# fattyplots <- ggplot(data = rdata, aes(x=Class, y=value, fill=experiment_group)) + 
-#   geom_bar(stat="identity", position="dodge") + 
-#   scale_fill_brewer(palette = "Set2")
-# print(fattyplots)
-# ggsave(filename = "fatty_acids.pdf", path="plot/", device="pdf")
