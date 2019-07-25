@@ -1,5 +1,5 @@
 ####################################################################################
-# Script: FWL_FattyAcids.functions.R
+# Script: FWL_FattyAcids.functions.2.8R
 # Author: Wenting Lyu
 # Notes: This script assist executing for main script FWL_lipidomics2.8.R which
 #         helps generating the graph and data for the workflow of lipidomics.
