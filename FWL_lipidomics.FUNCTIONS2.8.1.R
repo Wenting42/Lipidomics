@@ -93,14 +93,11 @@ InternalCheck <- function(internals, lipid){
     for( i in grades){
       for(j in number_of_p){
         updated_lipid <- updated_lipid %>% select(contains("Grade"), eval(i), contains("APValue"), eval(j))
-      }
-    }
-    for( i in grades){
-      for(j in number_of_p)
-        for(p in areas){
+         for(p in areas){
           lipid <- lipid %>% select(everything(), eval(i), eval(j), eval(p))
+        }
       }
-    }
+    }   
     
     # select and count the sample grades you want, filter the p value which less than 0.001
     selected_lipidomics <-  updated_lipid
