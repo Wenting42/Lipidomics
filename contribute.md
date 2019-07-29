@@ -1,4 +1,4 @@
-The CNAP contribution model follows the standard fork-branch model on the devel branch. Contributions are submitted as pull requets (PRs).
+The Lipidomics contribution model follows the standard fork-branch model on the devel branch. Contributions are submitted as pull requets (PRs).
 
 fork the cnap repo to your github
 
@@ -6,7 +6,7 @@ clone the forked repo to your computer
 
 add a new remote typically called ‘upstream’ that points to the source of netZoo
 
-git remote add upstream https://github.com/qbrc-cnap/cnap.git
+git remote add upstream https://github.com/Wenting42/Lipidomics.git
 
 switch to the devel branch, because your PR will target the devel branch
 
@@ -30,7 +30,7 @@ push your PR
 
 git push origin new-feature
 
-go the CNAP website https://github.com/qbrc-cnap/cnap
+go the Lipidomics website https://github.com/Wenting42/Lipidomics
 
 create a pull request through the pop-up
 
