@@ -20,13 +20,9 @@ list.of.packages <- c("tidyverse", "readr", "magrittr")
 need.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[, "Package"])]
 if(length(need.packages)) install.packages(need.packages)
 
-#######################
-# Required library
-library("tidyverse")
-library("readr")
-library("magrittr")
-#######################
-
+# Suppress the package messages
+lapply(list.of.packages, function(x) 
+  suppressMessages(require(x, character.only = TRUE, quietly = TRUE)))
  
 # input the original txt file and read by lines
 file.lines <- read_lines(file.choose(), skip_empty_rows=TRUE)
@@ -71,7 +67,7 @@ raw.data<- uncleaned.data %>%
 
 # selecting the columns we want for analysis
 cols.data <- raw.data %>%
-            select(contains("ARatio"), contains("APValue"), 
+            select(contains("ARatio"), contains("APValue"), contains("MainIon"),
                    contains("MainGrade"), contains("MainArea"),
                    -contains("NMA"), -contains("Score")
                    )
